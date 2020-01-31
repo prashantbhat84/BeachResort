@@ -5,10 +5,12 @@ import Home from "./components/Home";
 import Rooms from "./components/Rooms";
 import SingleRoom from "./components/SingleRoom";
 import Error from "./components/Error";
-import { Route, Link, Switch } from "react-router-dom";
+import NavBar from "./components/NavBar/NavBar";
+import { Route, Switch } from "react-router-dom";
 function App() {
   return (
     <Fragment>
+      <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/rooms" component={Rooms} />
