@@ -1,5 +1,6 @@
 import React from "react";
+import Hero from "./Hero/Hero";
 
 export default function Rooms() {
-  return <div>Hello from Rooms</div>;
+  return <Hero hero="roomsHero" />;
 }
