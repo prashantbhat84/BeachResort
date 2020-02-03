@@ -7,6 +7,7 @@ import SingleRoom from "./components/SingleRoom";
 import Error from "./components/Error";
 import NavBar from "./components/NavBar/NavBar";
 import { Route, Switch } from "react-router-dom";
+
 function App() {
   return (
     <Fragment>
