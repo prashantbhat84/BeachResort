@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import defaultBcg from "../images/room-1.jpeg";
-import Hero from "../components/Hero/Hero";
+
 import Banner from "../components/Banner/Banner";
 import { RoomContext } from "./context";
 
@@ -45,14 +45,49 @@ export default class SingleRoom extends Component {
       pets,
       images
     } = room;
+    const [mainImg, ...image] = images;
     return (
-      <StyledHero img={images[0] || defaultBcg}>
-        <Banner title={`${name} room`}>
-          <Link to="/rooms" className="btn-primary">
-            Back To Rooms
-          </Link>
-        </Banner>
-      </StyledHero>
+      <Fragment>
+        <StyledHero img={mainImg || defaultBcg}>
+          <Banner title={`${name} room`}>
+            <Link to="/rooms" className="btn-primary">
+              Back To Rooms
+            </Link>
+          </Banner>
+        </StyledHero>
+        <section className="single-room">
+          <div className="single-room-images">
+            {image.map((item, index) => {
+              return <img key={index} src={item} alt={name} />;
+            })}
+          </div>
+          <div className="single-room-info">
+            <article className="desc">
+              <h3>Details</h3>
+              <p>{description}</p>
+            </article>
+            <article className="info">
+              <h3>Info</h3>
+              <h5>Price: ${price}</h5>
+              <h5>Size: {size} SQFT</h5>
+              <h5>
+                Max Capacity:{" "}
+                {capacity > 1 ? `${capacity} people` : `${capacity}person`}
+              </h5>
+              <h5> {pets ? "Pets Allowed" : "No Pets Allowed"}</h5>
+              <h5>{breakfast && "Free Breakfast Included"}</h5>
+            </article>
+          </div>
+        </section>
+        <section className="room-extras">
+          <h3>Extras</h3>
+          <ul className="extras">
+            {extras.map((item, index) => {
+              return <li key={index}>-{item}</li>;
+            })}
+          </ul>
+        </section>
+      </Fragment>
     );
   }
 }

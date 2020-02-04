@@ -461,12 +461,12 @@ h6 {
 }
 
 .info h3,
-.info h6 {
+.info h5 {
   text-transform: capitalize;
   letter-spacing: var(--mainSpacing);
 }
 
-.info h6 {
+.info h5 {
   font-weight: 300;
 }
 
