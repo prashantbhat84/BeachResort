@@ -57,11 +57,35 @@ class RoomProvider extends Component {
     return room;
   };
   handleChange = event => {
-    const { type, name, value } = event.target;
-    console.log(type, name, value);
+    const target = event.target;
+    const value = event.type === "checkbox" ? target.checked : target.value;
+    const name = event.target.name;
+
+    this.setState(
+      {
+        [name]: value
+      },
+      this.filterrooms
+    );
   };
   filterrooms = () => {
-    console.log("hello");
+    let {
+      rooms,
+      type,
+      capacity,
+      price,
+      minSize,
+      maxSize,
+      minPrice,
+      maxPrice,
+      breakfast,
+      pets
+    } = this.state;
+    let tempRooms = [...rooms];
+    if (type !== "all") {
+      tempRooms = tempRooms.filter(room => room.type === type);
+    }
+    this.setState({ sortedRooms: tempRooms });
   };
   render() {
     return (
@@ -81,6 +105,7 @@ class RoomProvider extends Component {
 const RoomConsumer = RoomContext.Consumer;
 
 export function withRoomConsumer(Component) {
+  //hoC for functional components
   return function ConsumerWrapper(props) {
     return (
       <RoomConsumer>
