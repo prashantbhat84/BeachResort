@@ -33,7 +33,16 @@ const RoomsFilter = ({ rooms }) => {
       </option>
     );
   });
-
+  //get unique capacity
+  let people = getUnique(rooms, "capacity");
+  //map to jsx
+  people = people.map((item, index) => {
+    return (
+      <option value={item} key={index}>
+        {item}
+      </option>
+    );
+  });
   return (
     <section className="filter-container">
       <Title title="Search Rooms" />
@@ -52,6 +61,20 @@ const RoomsFilter = ({ rooms }) => {
           </select>
         </div>
         {/*end of select type */}
+        {/*start  of guests */}
+        <div className="form-group">
+          <label htmlFor="capacity">Guests</label>
+          <select
+            name="capacity"
+            id="capacity"
+            value={capacity}
+            className="form-control"
+            onChange={handlechange}
+          >
+            {people}
+          </select>
+        </div>
+        {/*end of select guests */}
       </form>
     </section>
   );
