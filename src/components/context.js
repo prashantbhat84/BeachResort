@@ -1,5 +1,18 @@
 import React, { Component, createContext } from "react";
 import items from "../data";
+import client from "../Contentful";
+// client
+//   .getEntries()
+//   .then(res => {
+//     // console.log(res.items);
+//     // res.items.map(item => {
+//     //   console.log(item.images);
+//     // });
+//     // console.log(res.items[0].fields.images[0].fields.file.url);
+//   })
+//   .catch(e => {
+//     console.log(e);
+//   });
 
 const RoomContext = createContext();
 
@@ -20,35 +33,51 @@ class RoomProvider extends Component {
     pets: false
   };
   //getData
+  getData = async () => {
+    try {
+      let response = await client.getEntries({
+        content_type: "beachResortRoom"
+      });
+
+      let rooms = this.formatData(items); //items for local data
+      console.log(rooms);
+      let featuredrooms = rooms.filter(room => room.featured === true);
+      let maxPrice = Math.max(...rooms.map(item => item.price));
+      let maxSize = Math.max(...rooms.map(item => item.size));
+      this.setState({
+        rooms,
+        featuredrooms,
+        sortedRooms: rooms,
+        loading: false,
+        price: maxPrice,
+        size: maxSize,
+        maxPrice,
+        maxSize
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   componentDidMount() {
-    //this.getData();
-    let rooms = this.formatData(items);
-    let featuredrooms = rooms.filter(room => room.featured === true);
-    let maxPrice = Math.max(...rooms.map(item => item.price));
-    let maxSize = Math.max(...rooms.map(item => item.size));
-    this.setState({
-      rooms,
-      featuredrooms,
-      sortedRooms: rooms,
-      loading: false,
-      price: maxPrice,
-      size: maxSize,
-      maxPrice,
-      maxSize
-    });
+    this.getData();
   }
   formatData(items) {
     let tempItems = items.map((item, index) => {
       let id = item.sys.id;
-      let images = item.fields.images.map(image => image.fields.file.url);
+      let images = item.fields.images.map(image => {
+        return image.fields.file.url;
+      });
+
       let room = {
         ...item.fields,
-        images,
+        images: images,
         id
       };
+
       return room;
     });
+
     return tempItems;
   }
   getRoom = slug => {
