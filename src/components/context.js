@@ -93,6 +93,11 @@ class RoomProvider extends Component {
     if (capacity !== 1) {
       tempRooms = tempRooms.filter(room => room.capacity === capacity);
     }
+    //filterby price
+    price = parseInt(price);
+
+    tempRooms = tempRooms.filter(room => room.price <= price);
+
     this.setState({ sortedRooms: tempRooms });
   };
   render() {
