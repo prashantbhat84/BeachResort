@@ -13,7 +13,7 @@ export default function Home() {
           title="Luxurious Rooms"
           subtitle="Deluxe Rooms starting at Rs 100/-"
         >
-          <Link to="/rooms" className="btn-primary">
+          <Link to="/BeachResort/rooms" className="btn-primary">
             Our Rooms
           </Link>
         </Banner>
