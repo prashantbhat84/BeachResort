@@ -11,7 +11,7 @@ export default function Rooms() {
       {/*  the new way of defining frgments*/}
       <Hero hero="roomsHero">
         <Banner title="Our Rooms">
-          <Link to="/" className="btn-primary">
+          <Link to="/BeachResort" className="btn-primary">
             Home
           </Link>
         </Banner>
